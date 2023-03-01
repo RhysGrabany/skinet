@@ -59,13 +59,13 @@ namespace API.Controllers
         [HttpGet("brands")]
         public async Task<ActionResult<ProductBrand>> GetProductBrands()
         {
-            return Ok(await _productBrandRepo.GetAllAsync());
+            return Ok(await _productBrandRepo.ListAllAsync());
         }
 
         [HttpGet("types")]
         public async Task<ActionResult<ProductBrand>> GetProductTypes()
         {
-            return Ok(await _productTypeRepo.GetAllAsync());
+            return Ok(await _productTypeRepo.ListAllAsync());
         }
 
     }

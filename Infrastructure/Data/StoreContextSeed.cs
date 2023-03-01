@@ -1,4 +1,5 @@
 ﻿using Core.Entities;
+using Core.Entities.OrderAggregate;
 using System.Text.Json;
 
 namespace Infrastructure.Data
@@ -29,8 +30,15 @@ namespace Infrastructure.Data
                 storeContext.Products.AddRange(products);
             }
 
+            if (!storeContext.DeliveryMethods.Any())
+            {
+                var deliveryData = File.ReadAllText("../Infrastructure/Data/SeedData/delivery.json");
+                var methods = JsonSerializer.Deserialize<List<DeliveryMethod>>(deliveryData);
+                storeContext.DeliveryMethods.AddRange(methods);
+            }
 
-            if(storeContext.ChangeTracker.HasChanges()) await storeContext.SaveChangesAsync();
+
+            if (storeContext.ChangeTracker.HasChanges()) await storeContext.SaveChangesAsync();
 
         }
     }
